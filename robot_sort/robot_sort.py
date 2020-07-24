@@ -96,8 +96,33 @@ class SortingRobot:
         """
         Sort the robot's list.
         """
-        # Fill this out
-        pass
+        # Fill this out #[_10_,9,8,11] None
+        self.swap_item() #[_None_,9,8,11] 10
+        while self.can_move_right():
+            self.move_right() #[None,_9_,8,11] 10 ... [9,None,_8_,11] 10 ... [9,8,None,_11_] 10 ... ... #[9,8,10,_None_] 11 
+            # [None,_8_,10,11] 9
+            if self.compare_item() == 1:
+                self.swap_item() #[None,_10_,8,11] 9 ... [9,None,_10_,11] 8
+                self.move_left() #[_None_,_10_,8,11] 9 ... [9,_None_,10,11] 8
+                self.swap_item() #[_9_,10,8,11] None ... [9,_8_,10,11] None
+                self.move_right() #[9,_10_,8,11] None ... [9,8,_10_,11] None
+                self.swap_item() #[9,_None_,8,11] 10 ... [9,8,_None_,11] 10
+            elif self.compare_() == -1:
+                self.move_left() #[9,8,_None_,11] 10
+                self.swap_item() #[9,8,_10_,11] None
+                self.move_right() #[9,8,10,_11_] None
+                if self.can_move_right():
+                    self.swap_item()
+                elif self.check_if_sorted():
+                    return
+                else:
+                    while self.can_move_left():
+                        self.move_left() # ... [_9_,8,10,11] None
+                    self.swap_item() # ... [_None_,8,10,11] 9
+
+    def check_if_sorted(self):
+        while self.can_move_left():
+
 
 
 if __name__ == "__main__":
