@@ -91,10 +91,53 @@ class SortingRobot:
         Returns True if the robot's light is on and False otherwise.
         """
         return self._light == "ON"
-
+"""
     def sort(self):
+        
+        #until array is sorted:
+        #    walk through
+        #    swap out of order elements
+        
+        self.swap_item()
+        while self.can_move_right():
+            if self.compare_item() is None:
+                self.swap_item()
+                if self.can_move_left():
+                    self.move_left()
+                    self.swap_item()
+                if self.can_move_left():
+                    while self.can_move_left():
+                        self.move_left()
+                elif self.compare_item() is None:
+                        self.swap_item()
+                        return
+            elif self.compare_item() == -1:
+                if self.can_move_right():
+                    self.swap_item()
+                else:
+                    self.move_left()
+                    #if self.compare_item() == 1
+                    if self.can_move_left():
+                        while self.can_move_left():
+                            self.move_left()
+                    else:
+                        self.move_right()
+            elif (not self.can_move_right()) and (self.compare_item() == 1): #biggest item is on the right
+                    self.swap_item()
+                    while self.can_move_left():
+                        self.move_left()
+                    self.swap_item()
+                    while self.can_move_right():
+                        self.move_right()
+                    self.move_left()
+                    self.swap_item()
+                    while self.can_move_left():
+                        self.move_left()
+"""
+    #def sort(self):
         """
         Sort the robot's list.
+        """
         """
         # Fill this out #[_10_,9,8,11] None
         self.swap_item() #[_None_,9,8,11] 10
@@ -127,7 +170,8 @@ class SortingRobot:
                     while self.can_move_left():
                         self.move_left() # ... [_9_,8,10,11] None
                     self.swap_item() # ... [_None_,8,10,11] 9
-
+"""
+"""
     def check_if_sorted(self):
         while self.can_move_left():
             self.move_left()
@@ -141,16 +185,15 @@ class SortingRobot:
             self.move_left()
             self.swap_item()
             self.move_right()
-        return True
-            
-
-
+        return True           
+"""
 
 if __name__ == "__main__":
     # Test our your implementation from the command line
     # with `python robot_sort.py`
-    #l = [99, 41, 15]
-    l = [15, 41, 58, 49, 26, 4, 28, 8, 61, 60, 65, 21, 78, 14, 35, 90, 54, 5, 0, 87, 82, 96, 43, 92, 62, 97, 69, 94, 99, 93, 76, 47, 2, 88, 51, 40, 95, 6, 23, 81, 30, 19, 25, 91, 18, 68, 71, 9, 66, 1, 45, 33, 3, 72, 16, 85, 27, 59, 64, 39, 32, 24, 38, 84, 44, 80, 11, 73, 42, 20, 10, 29, 22, 98, 17, 48, 52, 67, 53, 74, 77, 37, 63, 31, 7, 75, 36, 89, 70, 34, 79, 83, 13, 57, 86, 12, 56, 50, 55, 46]
+    l = [5, 6, 3, 2, 1, 4]
+    #l = [9, 5, 3, 7, 8, 10, 6, 2]
+    #l = [15, 41, 58, 49, 26, 4, 28, 8, 61, 60, 65, 21, 78, 14, 35, 90, 54, 5, 0, 87, 82, 96, 43, 92, 62, 97, 69, 94, 99, 93, 76, 47, 2, 88, 51, 40, 95, 6, 23, 81, 30, 19, 25, 91, 18, 68, 71, 9, 66, 1, 45, 33, 3, 72, 16, 85, 27, 59, 64, 39, 32, 24, 38, 84, 44, 80, 11, 73, 42, 20, 10, 29, 22, 98, 17, 48, 52, 67, 53, 74, 77, 37, 63, 31, 7, 75, 36, 89, 70, 34, 79, 83, 13, 57, 86, 12, 56, 50, 55, 46]
 
     robot = SortingRobot(l)
 

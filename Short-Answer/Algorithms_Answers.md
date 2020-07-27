@@ -9,3 +9,21 @@ b) The runtime for this snippet is O(nlogn) due to the fact that the outer for l
 c) The runtime for this snippet is O(n) because the amount of times the function runs directly correlates with the size of the input of the first time it is called. For example, if bunnyEars(2) is called, it will return 4, after having called bunnyEars(1) and subsequently calling the bunnyEars(0) base case.
 
 ## Exercise II
+
+lowest_floor(n):
+
+    mid = n // 2
+
+    if eggs breaks on mid floor:
+
+        return lowest_floor( mid // 2 )
+
+    else (egg doesn't break on mid floor):
+
+        if egg breaks on one above mid floor:
+
+            return mid
+
+        else:
+
+            return lowest_floor( mid + ( mid // 2 ) )
