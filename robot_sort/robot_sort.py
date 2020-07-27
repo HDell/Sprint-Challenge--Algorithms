@@ -91,102 +91,72 @@ class SortingRobot:
         Returns True if the robot's light is on and False otherwise.
         """
         return self._light == "ON"
-"""
+
     def sort(self):
-        
-        #until array is sorted:
-        #    walk through
-        #    swap out of order elements
-        
+        """
+        until array is sorted:
+            walk through
+            swap out of order elements
+        """
         self.swap_item()
         while self.can_move_right():
-            if self.compare_item() is None:
-                self.swap_item()
-                if self.can_move_left():
-                    self.move_left()
-                    self.swap_item()
-                if self.can_move_left():
-                    while self.can_move_left():
-                        self.move_left()
-                elif self.compare_item() is None:
-                        self.swap_item()
-                        return
-            elif self.compare_item() == -1:
-                if self.can_move_right():
-                    self.swap_item()
-                else:
-                    self.move_left()
-                    #if self.compare_item() == 1
-                    if self.can_move_left():
-                        while self.can_move_left():
-                            self.move_left()
-                    else:
-                        self.move_right()
-            elif (not self.can_move_right()) and (self.compare_item() == 1): #biggest item is on the right
-                    self.swap_item()
-                    while self.can_move_left():
-                        self.move_left()
-                    self.swap_item()
-                    while self.can_move_right():
-                        self.move_right()
-                    self.move_left()
-                    self.swap_item()
-                    while self.can_move_left():
-                        self.move_left()
-"""
-    #def sort(self):
-        """
-        Sort the robot's list.
-        """
-        """
-        # Fill this out #[_10_,9,8,11] None
-        self.swap_item() #[_None_,9,8,11] 10
-        while self.can_move_right():
-            self.move_right() #[None,_9_,8,11] 10 ... [9,None,_8_,11] 10 ... [9,8,None,_11_] 10 ... ... #[9,8,10,_None_] 11 
-            # [None,_8_,10,11] 9
+            self.move_right()
             if self.compare_item() == 1:
-                self.swap_item() #[None,_10_,8,11] 9 ... [9,None,_10_,11] 8
-                self.move_left() #[_None_,_10_,8,11] 9 ... [9,_None_,10,11] 8
-                self.swap_item() #[_9_,10,8,11] None ... [9,_8_,10,11] None
-                self.move_right() #[9,_10_,8,11] None ... [9,8,_10_,11] None
-                if self.can_move_right():
-                    self.swap_item() #[9,_None_,8,11] 10 ... [9,8,_None_,11] 10
-                else:
-                    if self.check_if_sorted():
-                        return
-                    else:
-                        while self.can_move_left():
-                            self.move_left()
-                        self.swap_item()
-            elif self.compare_item() == -1:
-                self.move_left() #[9,8,_None_,11] 10
-                self.swap_item() #[9,8,_10_,11] None
-                self.move_right() #[9,8,10,_11_] None
-                if self.can_move_right():
+                self.reorder()
+                if self.at_end():
                     self.swap_item()
-                elif self.check_if_sorted():
-                    return
-                else:
-                    while self.can_move_left():
-                        self.move_left() # ... [_9_,8,10,11] None
-                    self.swap_item() # ... [_None_,8,10,11] 9
-"""
-"""
-    def check_if_sorted(self):
+                    self.move_to_beginning()
+                    if self.is_sorted():
+                        return
+                    self.swap_item()
+            elif self.compare_item() == -1:
+                self.keep_order()
+                if self.at_end():
+                    self.swap_item()
+                    self.move_to_beginning()
+                    if self.is_sorted():
+                        return
+                    self.swap_item()
+    
+    def reorder(self):
+        self.swap_item()
+        self.move_left()
+        self.swap_item()
+        self.move_right()
+        self.swap_item()
+        
+    def keep_order(self):
+        self.move_left()
+        self.swap_item()
+        self.move_right()
+        self.swap_item()
+
+    def move_to_beginning(self):
         while self.can_move_left():
             self.move_left()
+
+    def at_end(self):
+        return not self.can_move_right()
+
+    def at_beginning(self):
+        return not self.can_move_left()
+
+    def is_sorted(self):
+        if self.can_move_left():
+            self.move_to_beginning()
+        self.swap_item()
         while self.can_move_right():
-            self.swap_item()
             self.move_right()
-            if self.compare_item() == 1:
+            if self.compare_item() == -1:
+                self.keep_order()
+            else:
                 self.move_left()
                 self.swap_item()
+                self.move_to_beginning()
                 return False
-            self.move_left()
-            self.swap_item()
-            self.move_right()
-        return True           
-"""
+        self.swap_item()
+        self.move_to_beginning()
+        return True
 
 if __name__ == "__main__":
     # Test our your implementation from the command line
